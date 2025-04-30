@@ -1,0 +1,42 @@
+<h1>Races</h1>
+<a href="{% url 'race_create' %}">+ Create Race</a>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Track Name</th>
+            <th>Location</th>
+            <th>Race Date</th>
+            <th>Closure Date</th>
+            <th>Registered Drivers</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for race in races %}
+        <tr>
+            <td>{{ race.race_track_name }}</td>
+            <td>{{ race.track_location }}</td>
+            <td>{{ race.race_date }}</td>
+            <td>{{ race.registration_closure_date }}</td>
+            <td>
+                {% if race.registered_drivers.all %}
+                    <ul>
+                        {% for driver in race.registered_drivers.all %}
+                            <li>{{ driver.first_name }} {{ driver.last_name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <em>No drivers registered</em>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'race_edit' race.pk %}">Edit</a> |
+                <a href="{% url 'race_delete' race.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'home' %}">Home</a>

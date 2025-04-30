@@ -1,0 +1,37 @@
+<h1>Teams</h1>
+<a href="{% url 'team_create' %}">+ Create Team</a>
+
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Team Name</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Logo</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for team in teams %}
+        <tr>
+            <td>{{ team.team_name }}</td>
+            <td>{{ team.team_location }}</td>
+            <td>{{ team.team_description }}</td>
+            <td>
+                {% if team.team_logo %}
+                    <img src="{{ team.team_logo.url }}" width="50" height="50" />
+                {% else %}
+                    No Logo
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'team_edit' team.pk %}">Edit</a> |
+                <a href="{% url 'team_delete' team.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'home' %}">Home</a>
+
