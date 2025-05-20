@@ -9,7 +9,7 @@ class TeamForm(forms.ModelForm):
 class DriverForm(forms.ModelForm):
     class Meta:
         model = Driver
-        fields = '__all__'
+        fields = ['first_name','last_name','dob','team']
 
 class RaceForm(forms.ModelForm):
     class Meta:

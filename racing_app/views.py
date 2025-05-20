@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Team, Driver, Race
 from .forms import TeamForm, DriverForm, RaceForm
 
+
 # HOME
 def home(request):
     return render(request, 'home.html')
@@ -89,3 +90,20 @@ def race_delete(request, pk):
         race.delete()
         return redirect('race_list')
     return render(request, 'confirm_delete.html', {'object': race, 'type': 'Race'})
+
+
+from rest_framework import viewsets
+from .models import Team, Driver, Race
+from .serializers import TeamSerializer, DriverSerializer, RaceSerializer
+
+class TeamViewSet(viewsets.ModelViewSet):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+
+class DriverViewSet(viewsets.ModelViewSet):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+class RaceViewSet(viewsets.ModelViewSet):
+    queryset = Race.objects.all()
+    serializer_class = RaceSerializer
